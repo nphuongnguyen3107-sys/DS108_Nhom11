@@ -58,9 +58,10 @@ KHÍ HẬU ĐỒ ÁN/
 ├── README.md
 ├── CodeBook.md
 └── requirements.txt
-
+```
 ---
 ##  Pipeline Tổng Thể
+```text
 Thu thập dữ liệu (OpenAQ + Open-Meteo)
 ↓
 Làm sạch & kiểm tra giá trị hợp lệ (PM2.5 ∈ [0, 400] µg/m³)
@@ -98,7 +99,7 @@ Baseline Models: Linear Regression → Random Forest → XGBoost (CV)
 Residual Analysis
 ↓
 So sánh tổng hợp + Statistical Tests
-
+```
 ---
 
 ## Dữ Liệu Đầu Vào

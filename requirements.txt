@@ -7,3 +7,6 @@ xgboost
 statsmodels
 openmeteo-requests
 requests
+streamlit
+plotly
+statsmodels

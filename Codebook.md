@@ -154,6 +154,7 @@
 
 ---
 ## Sơ Đồ Nguồn Gốc Biến
+```text
 OpenAQ CSV
 └─ value → pm25 → [làm sạch, nhóm theo giờ] → pm25_raw
 │
@@ -171,3 +172,4 @@ time column
 └─ dt.hour → hour → [sin/cos] → hour_sin, hour_cos
 └─ dt.month → month → [sin/cos] → month_sin, month_cos
 └─ dt.dayofweek → dayofweek → [sin/cos] → dow_sin, dow_cos
+```

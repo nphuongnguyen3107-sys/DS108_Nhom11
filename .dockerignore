@@ -1,0 +1,12 @@
+.git/
+.claude/
+__pycache__/
+*.pyc
+.worktrees/
+data/raw/
+data/processed/
+data/clean_and_features/
+notebook/
+.gitignore
+Dockerfile
+docker-compose.yml

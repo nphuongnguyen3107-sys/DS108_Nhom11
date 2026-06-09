@@ -10,7 +10,7 @@
 | **Múi giờ** | Asia/Ho_Chi_Minh (UTC+7) |
 | **Phạm vi** | 2024 → nay |
 | **Nguồn** | OpenAQ API + Open-Meteo Archive API |
-| **Số features cuối** | ~37 features + 1 target |
+| **Số features cuối** | ~34 features + 1 target |
 
 ---
 
@@ -26,8 +26,6 @@
 
 ### Nhóm 2 — Biến Khí Tượng (Đã Scale)
 
-> Tất cả được scale bằng `RobustScaler` fit trên tập Train.  
-> Giá trị gốc trước scale: xem API Open-Meteo.
 
 | Tên cột | Kiểu | Đơn vị gốc | Mô tả | Nguồn |
 |---|---|---|---|---|

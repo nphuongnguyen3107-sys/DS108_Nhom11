@@ -42,9 +42,14 @@ KHÍ HẬU ĐỒ ÁN/
 │       ├── train_clean.csv
 │       ├── val_clean.csv
 │       └── test_clean.csv
-│
-├── notebooks/
-│   ├── 01_data_collection_merge.ipynb
+├── dashboard/
+|       ├──app.py
+|
+├── notebook/
+│   ├── 01_data_collection_merge/
+    |               ├──data_collection_openaq.ipynb
+    |               ├──data_collection_openmeteo.ipynb
+    |                
 │   ├── 02_data_ingestion_and_cleaning.ipynb
 │   ├── 03_eda.ipynb
 │   ├── 04_feature_engineering_and_modeling.ipynb
@@ -53,11 +58,17 @@ KHÍ HẬU ĐỒ ÁN/
 │   ├── __pycache__
 │   ├── features.py
 │   └── evaluation.py
+|   └── config.py
 │
 │
 ├── README.md
 ├── CodeBook.md
-└── requirements.txt
+├── requirements.txt
+├── .dockerignore
+├── Dockerfile
+├── docker-compose.yml
+
+
 ```
 ---
 ##  Pipeline Tổng Thể
@@ -87,8 +98,6 @@ Validation Imputation (Synthetic Removal Test)
 Outlier Analysis: Flag (không xóa)
 ↓
 Feature Engineering (Lag / Rolling / Diff / Cyclical / Interactions)
-↓
-VIF Check: Kiểm tra đa cộng tuyến
 ↓
 Scaling (RobustScaler — fit trên Train, transform Val & Test)
 ↓
@@ -128,9 +137,9 @@ So sánh tổng hợp + Statistical Tests
 
 | Tập | Khoảng thời gian | Mục đích |
 |---|---|---|
-| **Train** | Đến 31/12/2025 | Huấn luyện models + fit scalers |
-| **Validation** | 01/01/2026 → 28/02/2026 | Early stopping, hyperparameter tuning |
-| **Test** | 01/03/2026 → nay | Đánh giá cuối cùng (không dùng trong quá trình train) |
+| **Train** |  2025-06-23 → 2025-12-31 | Huấn luyện models + fit scalers |
+| **Validation** | 2026-01-01 → 2026-02-28 | Early stopping, hyperparameter tuning |
+| **Test** |  2026-03-01 → 2026-05-10 | Đánh giá cuối cùng (không dùng trong quá trình train) |
 
 > **Nguyên tắc quan trọng:** Split thực hiện **trước** imputation, scaling và feature engineering. Scaler/Imputer chỉ được `fit` trên tập Train, sau đó `transform` Val và Test.
 

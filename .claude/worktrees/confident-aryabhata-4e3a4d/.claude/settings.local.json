@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find \"D:/Khí hậu đồ án \\(1\\)/src\" -type f | sort)",
+      "Bash(head -3 \"D:/Khí hậu đồ án \\(1\\)/data/clean_and_features/train_features.csv\")",
+      "Bash(head -5 \"D:/Khí hậu đồ án \\(1\\)/data/raw/raw_openaq.csv\")",
+      "Bash(head -5 \"D:/Khí hậu đồ án \\(1\\)/data/raw/raw_openmeteo.csv\")",
+      "Bash(python3 -c \"import pandas as pd; df=pd.read_csv\\('D:/Khí hậu đồ án \\(1\\)/data/clean_and_features/train_features.csv'\\); print\\('Columns:', list\\(df.columns\\)\\); print\\('Shape:', df.shape\\); print\\(df.head\\(2\\).T\\)\")",
+      "Bash(python -c \"import pandas as pd; df=pd.read_csv\\('D:/Khí hậu đồ án \\(1\\)/data/clean_and_features/train_features.csv'\\); print\\('Columns:', list\\(df.columns\\)\\); print\\('Shape:', df.shape\\); print\\(df.iloc[:2].T\\)\")",
+      "Bash(find \"D:/Khí hậu đồ án \\(1\\)/data\" -type f | sort)",
+      "Bash(find \"D:/Khí hậu đồ án \\(1\\)/notebook\" -type f | sort)",
+      "Bash(python -c ' *)",
+      "Bash(ls -la \"D:/Khí hậu đồ án \\(1\\)/dashboard/\" 2>/dev/null || echo \"dashboard folder does not exist\")",
+      "Read(//d/Khí hậu đồ án \\(1\\)/**)",
+      "Bash(python -c \"from src.data_loader import load_cleaned_data; df=load_cleaned_data\\(\\); print\\('OK - shape:', df.shape\\)\")",
+      "Bash(python -m streamlit run dashboard/app.py --server.headless true)",
+      "mcp__Claude_in_Chrome__navigate",
+      "Bash(git -C \"D:/Khí hậu đồ án \\(1\\)\" status)",
+      "Bash(git -C \"D:/Khí hậu đồ án \\(1\\)\" ls-files)",
+      "Bash(rm -rf \"D:/Khí hậu đồ án \\(1\\)/.claude\")",
+      "Bash(docker-compose -f \"D:/Khí hậu đồ án \\(1\\)/docker-compose.yml\" build)",
+      "Bash(mkdir -p \"D:/Khí hậu đồ án \\(1\\)/pipeline\")",
+      "Bash(python -c \"import sys,json; nb=json.load\\(sys.stdin\\); [print\\(f'=== Cell {i}: {c[\\\\\"cell_type\\\\\"]} ===\\\\n{c[\\\\\"source\\\\\"] if isinstance\\(c[\\\\\"source\\\\\"],str\\) else \\\\\"\\\\\".join\\(c[\\\\\"source\\\\\"]\\)}\\\\n'\\) for i,c in enumerate\\(nb['cells']\\) if c['cell_type']=='code']\")",
+      "Bash(python -c \"import sys,json; nb=json.load\\(sys.stdin\\); [print\\(f'=== Cell {i}: {c[\\\\\"cell_type\\\\\"]} ===\\\\n{\\\\\"\\\\\".join\\(c[\\\\\"source\\\\\"]\\)}\\\\n'\\) for i,c in enumerate\\(nb['cells']\\) if c['cell_type']=='code']\")"
+    ]
+  }
+}

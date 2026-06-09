@@ -9,4 +9,6 @@ openmeteo-requests
 requests
 streamlit
 plotly
-statsmodels
+joblib 
+missingno
+scipy

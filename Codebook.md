@@ -164,7 +164,6 @@ Open-Meteo API
 ├─ [log1p] → precipitation_log
 ├─ [binary] → is_rain
 ├─ [product] → temp_humidity
-├─ [ratio] → wind_press_ratio
 └─ [diff] → temp_diff_1, humidity_diff_1
 time column
 └─ dt.hour → hour → [sin/cos] → hour_sin, hour_cos

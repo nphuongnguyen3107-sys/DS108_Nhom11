@@ -1,4 +1,10 @@
-echo ".claude/worktrees/" >> .gitignore
-git rm -r --cached .claude/worktrees/ 2>/dev/null
-git add .gitignore
-git commit -m "Ignore .claude/worktrees directory"
+.claude/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.DS_Store
+*.venv/
+venv/
+env/

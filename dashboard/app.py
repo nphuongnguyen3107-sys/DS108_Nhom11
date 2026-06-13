@@ -35,6 +35,10 @@ def load_data():
     return df
 
 df = load_data()
+# Tạo cột pm25_original chứa dữ liệu thực tế (gán các hàng nội suy bằng NaN để hiển thị khoảng trống)
+df['pm25_original'] = df['pm25'].copy()
+df.loc[df['pm25_interpolated'] == True, 'pm25_original'] = np.nan
+
 summary = get_data_summary(df)
 
 # ─── HEADER ───
@@ -65,12 +69,14 @@ with st.sidebar:
     show_raw = st.checkbox("Hiện dữ liệu thô (chưa làm sạch)", value=False)
 
 # ─── lọc dataframe ───
-pm25_col = "pm25_raw" if show_raw else "pm25"
+pm25_col = "pm25_original" if show_raw else "pm25"
 mask = (
     (df["time"].dt.date >= date_range[0])
     & (df["time"].dt.date <= date_range[1])
-    & (df[pm25_col] >= pm25_range[0])
-    & (df[pm25_col] <= pm25_range[1])
+    & (
+        ((df[pm25_col] >= pm25_range[0]) & (df[pm25_col] <= pm25_range[1]))
+        | df[pm25_col].isna()
+    )
 )
 df_f = df[mask]
 st.caption(f"Đang hiển thị {len(df_f):,} / {len(df):,} dòng")

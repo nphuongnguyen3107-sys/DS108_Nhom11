@@ -67,7 +67,7 @@ Mỗi mẫu bao gồm:
 - **Lag features:** `pm25_lag_1`, `pm25_lag_3`, `pm25_lag_6`, `pm25_lag_24`, `pm25_lag_168`.
 - **Rolling statistics:** Trung bình, độ lệch chuẩn, max, min trên cửa sổ 24h và 168h.
 - **Difference features:** `pm25_diff_1`, `pm25_diff_24`.
-- **Weather interactions:** `precipitation_log`, `is_rain`, `temp_humidity`, `wind_press_ratio`, `temp_diff_1`, `humidity_diff_1`.
+- **Weather interactions:** `precipitation_log`, `is_rain`, `temp_humidity`, `temp_diff_1`, `humidity_diff_1`.
 
 **Is there a label or target associated with each instance?**
 

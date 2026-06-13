@@ -1,8 +1,7 @@
 # Dự Báo Nồng Độ Bụi Mịn PM2.5 tại TP.HCM
 ### Tiền Xử Lý · Feature Engineering · Baseline Models
 
-[![Streamlit App]([https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://your-streamlit-app-link.streamlit.app](https://ds108nhom11-nsnzqphzgpi4hkeyrnywgt.streamlit.app/)
-
+https://ds108nhom11-nsnzqphzgpi4hkeyrnywgt.streamlit.app/
 ---
 
 ## Tổng Quan Dự Án

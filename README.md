@@ -158,7 +158,7 @@ So sánh tổng hợp + Statistical Tests
 | **Rolling** | `roll_mean/std/max/min_24`, `roll_mean_168`, `volatility_24` | `shift(1)` để tránh target leakage |
 | **Diff** | `pm25_diff_1`, `pm25_diff_24` | Justify bởi Stationarity test |
 | **Cyclical** | `hour_sin/cos`, `month_sin/cos`, `dow_sin/cos` | Giữ tính liên tục chu kỳ |
-| **Weather** | `precipitation_log`, `is_rain`, `temp_humidity`, `wind_press_ratio` | Phi tuyến hóa |
+| **Weather** | `precipitation_log`, `is_rain`, `temp_humidity` | Phi tuyến hóa |
 | **Weather Diff** | `temp_diff_1`, `humidity_diff_1` | Tốc độ thay đổi |
 
 

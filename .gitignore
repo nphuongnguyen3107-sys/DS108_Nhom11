@@ -1,1 +1,4 @@
-.claude/ __pycache__/ *.pyc .worktrees/ *.swp
+echo ".claude/worktrees/" >> .gitignore
+git rm -r --cached .claude/worktrees/ 2>/dev/null
+git add .gitignore
+git commit -m "Ignore .claude/worktrees directory"

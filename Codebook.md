@@ -10,7 +10,7 @@
 | **Múi giờ** | Asia/Ho_Chi_Minh (UTC+7) |
 | **Phạm vi** | 2024 → nay |
 | **Nguồn** | OpenAQ API + Open-Meteo Archive API |
-| **Số features cuối** | 33 features (input) — target `pm25` nằm trong file `*_clean.csv` |
+| **Số features cuối** | 31 features (sử dụng cho training) — CSV lưu 33 cột, loại 2 cột trước khi train |
 
 ---
 
@@ -89,11 +89,10 @@
 | Tên cột | Kiểu | Đơn vị | Mô tả | Cách tạo |
 |---|---|---|---|---|
 | `pm25_roll_mean_24` | float64 | µg/m³ | Trung bình PM2.5 trong 24h gần nhất (không kể t) | `raw.shift(1).rolling(24).mean()` |
-| `pm25_roll_std_24` | float64 | µg/m³ | Độ lệch chuẩn PM2.5 trong 24h | `raw.shift(1).rolling(24).std()` |
+| `pm25_volatility_24` | float64 | µg/m³ | Độ biến động / lệch chuẩn PM2.5 trong 24h | `raw.shift(1).rolling(24).std()` |
 | `pm25_roll_max_24` | float64 | µg/m³ | Giá trị max PM2.5 trong 24h | `raw.shift(1).rolling(24).max()` |
 | `pm25_roll_min_24` | float64 | µg/m³ | Giá trị min PM2.5 trong 24h | `raw.shift(1).rolling(24).min()` |
 | `pm25_roll_mean_168` | float64 | µg/m³ | Trung bình PM2.5 trong 168h (1 tuần) | `raw.shift(1).rolling(168).mean()` |
-| `pm25_volatility_24` | float64 | µg/m³ | Độ biến động PM2.5 trong 24h (= `roll_std_24`) | Alias của `pm25_roll_std_24` |
 
 ---
 
@@ -115,9 +114,8 @@
 | `precipitation_log` | float64 | log(mm) | Log transform lượng mưa (đã scale) | `log1p(precipitation)` | Xử lý phân phối lệch phải cực mạnh của mưa |
 | `is_rain` | int64 | 0/1 | Có mưa trong giờ không | `(precipitation > 0).astype(int)` | Feature nhị phân bổ sung |
 | `temp_humidity` | float64 | — | Tương tác nhiệt độ × độ ẩm | `temperature × humidity` | Capture hiệu ứng phi tuyến |
-| `wind_press_ratio` | float64 | — | Tỷ số gió / áp suất | `wind_speed / (pressure + 1e-6)` | Proxy cho điều kiện khuếch tán |
-| `temp_diff_1` | float64 | °C/h | Tốc độ thay đổi nhiệt độ trong 1h | `temperature.diff(1).fillna(0)` | `fillna(0)` để tránh NaN hàng đầu |
-| `humidity_diff_1` | float64 | %/h | Tốc độ thay đổi độ ẩm trong 1h | `humidity.diff(1).fillna(0)` | `fillna(0)` để tránh NaN hàng đầu |
+| `temp_diff_1` | float64 | °C/h | Tốc độ thay đổi nhiệt độ trong 1h | `temperature.shift(1).diff(1).fillna(0)` | `fillna(0)` để tránh NaN hàng đầu |
+| `humidity_diff_1` | float64 | %/h | Tốc độ thay đổi độ ẩm trong 1h | `humidity.shift(1).diff(1).fillna(0)` | `fillna(0)` để tránh NaN hàng đầu |
 
 ---
 

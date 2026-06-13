@@ -1,9 +1,9 @@
-#  Dự Báo Nồng Độ Bụi Mịn PM2.5 tại TP.HCM
+# Dự Báo Nồng Độ Bụi Mịn PM2.5 tại TP.HCM
 ### Tiền Xử Lý · Feature Engineering · Baseline Models
 
 ---
 
-##  Tổng Quan Dự Án
+## Tổng Quan Dự Án
 
 | Hạng mục | Nội dung |
 |---|---|
@@ -15,7 +15,7 @@
 
 ---
 
-##  Mục Tiêu
+## Mục Tiêu
 
 - Xây dựng pipeline tiền xử lý **chống data leakage** hoàn chỉnh cho chuỗi thời gian
 - Chẩn đoán cơ chế khuyết thiếu (MCAR/MAR) và lựa chọn phương pháp imputation phù hợp
@@ -24,54 +24,56 @@
 - Đánh giá thống kê ý nghĩa của sự khác biệt giữa các models (Diebold-Mariano, Paired t-test)
 
 ## Cấu Trúc Dự Án
+
 ```text
 KHÍ HẬU ĐỒ ÁN/
 ├── data/
-│   ├── raw/                          # Dữ liệu thô (không được sửa)
+│   ├── raw/                    # Dữ liệu thô (không được sửa)
 │   │   ├── raw_openaq.csv
 │   │   └── raw_openmeteo.csv
 │   │
-│   ├── processed/                    # Dữ liệu sau cleaning
-│   │   ├── cleaned_final.csv         # Dataset sau merge & gap handling
-|   |
+│   ├── processed/              # Dữ liệu sau merge & gap handling
+│   │   └── cleaned_final.csv
 │   │
-│   └── clean_and_features/                     # Dữ liệu sau feature engineering
+│   └── clean_and_features/     # Dữ liệu sau imputation + 
+|── clean_and_feautures
+│       ├── train_clean.csv
+│       ├── val_clean.csv
+│       ├── test_clean.csv
 │       ├── train_features.csv
 │       ├── val_features.csv
 │       └── test_features.csv
-│       ├── train_clean.csv
-│       ├── val_clean.csv
-│       └── test_clean.csv
+│
 ├── dashboard/
-|       ├──app.py
-|
+│   └── app.py
+│
 ├── notebook/
 │   ├── 01_data_collection_merge/
-    |               ├──data_collection_openaq.ipynb
-    |               ├──data_collection_openmeteo.ipynb
-    |                
+│   │   ├── data_collection_openaq.ipynb
+│   │   └── data_collection_openmeteo.ipynb
 │   ├── 02_data_ingestion_and_cleaning.ipynb
 │   ├── 03_eda.ipynb
-│   ├── 04_feature_engineering_and_modeling.ipynb
+│   └── 04__feature_engineering_and_modeling.ipynb
 │
-├── src/                              
+├── src/
 │   ├── __pycache__
+│   ├── config.py
+│   ├── data_loader.py
 │   ├── features.py
 │   └── evaluation.py
-|   └── config.py
-│
-│
+├── DATASHEET.md
 ├── README.md
-├── CodeBook.md
+├── Codebook.md
 ├── requirements.txt
 ├── .dockerignore
 ├── Dockerfile
-├── docker-compose.yml
-
-
+└── docker-compose.yml
 ```
+
 ---
-##  Pipeline Tổng Thể
+
+## Pipeline Tổng Thể
+
 ```text
 Thu thập dữ liệu (OpenAQ + Open-Meteo)
 ↓
@@ -109,17 +111,20 @@ Residual Analysis
 ↓
 So sánh tổng hợp + Statistical Tests
 ```
+
 ---
 
 ## Dữ Liệu Đầu Vào
 
 ### 1. PM2.5 (OpenAQ)
+
 - **File:** `raw_openaq.csv`
 - **Nội dung:** Đo lường PM2.5 theo giờ từ 5 trạm quan trắc tại TP.HCM
 - **Xử lý:** Loại giá trị âm và > 400 µg/m³; chuyển UTC → Asia/Ho_Chi_Minh; gộp tất cả trạm (lấy trung bình theo giờ)
 
 ### 2. Khí Tượng (Open-Meteo Archive API)
--  **File:** `raw_openmeteo.csv`
+
+- **File:** `raw_openmeteo.csv`
 - **Tọa độ:** 10.7769°N, 106.7009°E (TP.HCM)
 - **Biến thu thập:**
 
@@ -137,9 +142,9 @@ So sánh tổng hợp + Statistical Tests
 
 | Tập | Khoảng thời gian | Mục đích |
 |---|---|---|
-| **Train** |  2025-06-23 → 2025-12-31 | Huấn luyện models + fit scalers |
+| **Train** | 2025-06-23 → 2025-12-31 | Huấn luyện models + fit scalers |
 | **Validation** | 2026-01-01 → 2026-02-28 | Early stopping, hyperparameter tuning |
-| **Test** |  2026-03-01 → 2026-05-10 | Đánh giá cuối cùng (không dùng trong quá trình train) |
+| **Test** | 2026-03-01 → 2026-05-10 | Đánh giá cuối cùng (không dùng trong quá trình train) |
 
 > **Nguyên tắc quan trọng:** Split thực hiện **trước** imputation, scaling và feature engineering. Scaler/Imputer chỉ được `fit` trên tập Train, sau đó `transform` Val và Test.
 
@@ -155,6 +160,7 @@ So sánh tổng hợp + Statistical Tests
 | **Cyclical** | `hour_sin/cos`, `month_sin/cos`, `dow_sin/cos` | Giữ tính liên tục chu kỳ |
 | **Weather** | `precipitation_log`, `is_rain`, `temp_humidity`, `wind_press_ratio` | Phi tuyến hóa |
 | **Weather Diff** | `temp_diff_1`, `humidity_diff_1` | Tốc độ thay đổi |
+
 
 ---
 
@@ -185,13 +191,13 @@ So sánh tổng hợp + Statistical Tests
 
 ```python
 CONFIG = {
-    'gap_threshold_days':      7,     # Đứt gãy > 7 ngày → loại bỏ
-    'interpolate_limit_hours': 3,     # Nội suy tối đa 3h liên tiếp
-    'ffill_limit_hours':       3,     # Forward-fill tối đa 3h
-    'train_ratio':  0.80,
-    'val_ratio':    0.10,
-    'test_ratio':   0.10,
-    'iqr_multiplier': 1.5,            # Ngưỡng IQR cho outlier flag
+    'gap_threshold_days': 7,      # Đứt gãy > 7 ngày → loại bỏ
+    'interpolate_limit_hours': 3, # Nội suy tối đa 3h liên tiếp
+    'ffill_limit_hours': 3,       # Forward-fill tối đa 3h
+    'train_ratio': 0.80,
+    'val_ratio': 0.10,
+    'test_ratio': 0.10,
+    'iqr_multiplier': 1.5,        # Ngưỡng IQR cho outlier flag
     'random_state': 42,
     'target': 'pm25'
 }
@@ -202,12 +208,13 @@ CONFIG = {
 ## Thư Viện Sử Dụng
 
 pandas, numpy, requests, joblib, matplotlib, seaborn, missingno
-scipy, statsmodels, sklearn, xgboost
+scipy, statsmodels, sklearn, xgboost, openmeteo-requests, streamlit, plotly
 
 Cài đặt:
+
 ```bash
 pip install pandas numpy requests joblib matplotlib seaborn missingno \
-            scipy statsmodels scikit-learn xgboost
+    scipy statsmodels scikit-learn xgboost openmeteo-requests streamlit plotly
 ```
 
 ---
@@ -218,3 +225,5 @@ pip install pandas numpy requests joblib matplotlib seaborn missingno \
 2. **Outlier Strategy:** Không xóa outlier PM2.5 vì chúng là real pollution events (đốt rác, traffic đêm). Chỉ flag bằng `pm25_outlier_iqr`. Dùng `RobustScaler` để giảm ảnh hưởng.
 3. **Multicollinearity:** VIF cao ở lag features là bình thường cho time series. Không ảnh hưởng RF/XGBoost; cần thận trọng khi interpret hệ số Linear Regression.
 4. **Missing Data:** Cơ chế khuyết thiếu là **MAR** (Missing At Random) — xác nhận qua Point-Biserial correlation. Dùng `interpolate(method='time', limit=3)` cho PM2.5 và `ffill(limit=3)` cho khí tượng.
+5. **API Key:** File `data_collection_openaq.ipynb` chứa API key hardcoded. Không commit file này lên git. Nên dùng biến môi trường (`os.environ["OPENAQ_API_KEY"]`) thay thế.
+6. **Dashboard:** Dashboard đọc `cleaned_final.csv` (data đã qua gap detection, chưa có features). Cột `pm25` trong file này là giá trị **chưa scale** (µg/m³ thực tế), phù hợp để hiển thị KPI.

@@ -10,7 +10,7 @@
 | **Múi giờ** | Asia/Ho_Chi_Minh (UTC+7) |
 | **Phạm vi** | 2024 → nay |
 | **Nguồn** | OpenAQ API + Open-Meteo Archive API |
-| **Số features cuối** | ~34 features + 1 target |
+| **Số features cuối** | 33 features (input) — target `pm25` nằm trong file `*_clean.csv` |
 
 ---
 
